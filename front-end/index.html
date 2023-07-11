@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "
+http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<title>controller</title>
+	<link rel="stylesheet" type="text/css" href="./css/page.css" />
+	<link rel="stylesheet" href="./css/bootstrap.css">
+	<link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.css">
+	<link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
+
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="./Star.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		#starBg {
+			display: block;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			position: absolute;
+			z-index: 2;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="pic">
+		<img src="images/树莓.png" height="10%" width="30%">
+	</div>
+	<div class="navbar">
+		<p>安保小车</p>
+	</div>
+
+	<div class="div1">
+		<iframe src="http://192.168.50.1:8080/javascript_simple.html" scrolling="no" id="iframe-a" width="100%"
+			height="100%">
+			<div class="box">
+		</iframe>
+
+	</div>
+	<div class="box">
+		<ul>
+			<p class="vido">小车</p>
+			<li><i></i></li>
+			<li><i class="fa fa-arrow-up fa-5x" id="aup"></i></li>
+			<li></li>
+			<li><i class="fa fa-arrow-left fa-5x" id="aleft"></i></li>
+			<li><i class="fa fa-arrows fa-5x" id="amin"></i></li>
+			<li><i class="fa fa-arrow-right fa-5x" id="aright"></i></li>
+			<li></li>
+			<li><i class="fa fa-arrow-down fa-5x" id="adown"></i></li>
+			<li></li>
+		</ul>
+	</div>
+
+	<div class="box2">
+		<ul>
+			<p class="vido">&nbsp;摄像头</p>
+			<li><i></i></li>
+			<li><i class="fa fa-arrow-up fa-5x" id="aup"></i></li>
+			<li></li>
+			<li><i class="fa fa-arrow-left fa-5x" id="aleft"></i></li>
+			<li><i class="fa fa-arrows fa-5x" id="amin"></i></li>
+			<li><i class="fa fa-arrow-right fa-5x" id="aright"></i></li>
+			<li></li>
+			<li><i class="fa fa-arrow-down fa-5x" id="adown"></i></li>
+			<li></li>
+		</ul>
+	</div>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/run.js"></script>
+	<div class="back">
+		<canvas id="starBg"></canvas>
+	</div>
+	<script type="text/javascript">
+		let stars = [];
+		const maxStars = 1100; // 星星数量
+
+		function initCanvas() {
+			const canvas = document.getElementById("starBg");
+			const ctx = canvas.getContext("2d");
+			const w = (canvas.width = window.innerWidth);
+			const h = (canvas.height = window.innerHeight);
+
+			const canvas2 = document.createElement("canvas");
+			const ctx2 = canvas2.getContext("2d");
+			canvas2.width = 100;
+			canvas2.height = 100;
+			const half = canvas2.width / 2;
+			const gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
+			gradient2.addColorStop(0.025, "#CCC");
+			gradient2.addColorStop(0.1, "hsl(217, 61%, 33%)");
+			gradient2.addColorStop(0.25, "hsl(217, 64%, 6%)");
+			gradient2.addColorStop(1, "transparent");
+
+			ctx2.fillStyle = gradient2;
+			ctx2.beginPath();
+			ctx2.arc(half, half, half, 0, Math.PI * 2);
+			ctx2.fill();
+
+			for (var i = 1; i < maxStars; i++) {
+				const star = new Star({ w, h }, ctx, canvas2);
+				stars[i] = star;
+			}
+			function animation() {
+				ctx.globalCompositeOperation = "source-over";
+				ctx.globalAlpha = 0.8; //尾巴
+				ctx.fillStyle = "hsla(217, 64%, 6%, 2)";
+				ctx.fillRect(0, 0, w, h);
+
+				ctx.globalCompositeOperation = "lighter";
+				for (let i = 1; i < stars.length; i++) {
+					stars[i].draw();
+				}
+
+				window.requestAnimationFrame(animation);
+			}
+			animation();
+		}
+		initCanvas();
+	</script>
+</body>
+
+</html>
