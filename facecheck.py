@@ -29,8 +29,8 @@ class CarFaceCheck( CarCamera, CarLed):
         s = base64_data.decode()
         pic_b64 = 'data:image/jpg;base64,' + s  # 将图片解码
 
-        SecretId = "AKIDfDZhbIn49E8umeLyRozzrbCdu32rVv9B"  # id
-        SecretKey = "sZEzmU2XvCJH7pNm9OSM5bw8A5c0Pfms"  # 密钥
+        SecretId = "id"  # id
+        SecretKey = "key"  # 密钥
 
         try:
             # 实例化一个认证对象
@@ -143,9 +143,9 @@ class CarFaceCheck( CarCamera, CarLed):
 
     def sendEmail(self):
         # 设置服务器所需信息
-        fromaddr = '1194082497@qq.com'
-        password = 'axmhqrhwweishcfg'  # 邮箱授权码
-        toaddrs = ['1309742079@qq.com', 'corzanxian@gmail.com']
+        fromaddr = 'mail'
+        password = 'key'  # 邮箱授权码
+        toaddrs = ['xxxx', 'xxx']
 
         # 设置email信息
         content = 'Stranger！'
